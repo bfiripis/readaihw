@@ -2,7 +2,7 @@
 #'
 #' @param measure_category_code A measure category code. See
 #' `get_measure_categories()` for a list.
-#' @param trim Whether or not to exclude the potentially unecessary variables.
+#' @param trim Whether or not to exclude the potentially unnecessary variables.
 #'
 #' @return data
 #' @export

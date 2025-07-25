@@ -49,6 +49,7 @@ read_flat_data_extract <- function(measure_category_code, measure_code, return_c
     tidy_flat_data_extract(return_caveats = return_caveats)
 }
 
+#' @export
 tidy_resp_to_df <- function(result) {
   result |>
     purrr::map(unlist) |>
