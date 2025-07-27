@@ -49,7 +49,12 @@ read_flat_data_extract <- function(measure_category_code, measure_code, return_c
     tidy_flat_data_extract(return_caveats = return_caveats)
 }
 
+#' Convert API response to tidy data frame
+#'
+#' @param result API response result list
+#' @return data.frame with cleaned column names
 #' @export
+#' @noRd
 tidy_resp_to_df <- function(result) {
   result |>
     purrr::map(unlist) |>
