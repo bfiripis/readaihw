@@ -89,9 +89,12 @@ get_all_flat_data <- function() {
   # Get categories first
   categories <- get_measure_categories()
 
+  message(glue::glue("Downloading flat data from {nrow(categories)} measure categories"))
+
   # Download flat data for each category using existing function
   all_data <- categories$measure_category_code |>
-    purrr::map_dfr(~{
+    purrr::imap_dfr(~{
+      message(glue::glue("Processing category {.y}/{nrow(categories)}: {.x}"))
       read_flat_data_extract(.x, return_caveats = FALSE)
     })
 
@@ -148,6 +151,7 @@ download_all_aihw_data <- function(file = "aihw_data.rds", force = FALSE) {
   }
 
   message("Downloading AIHW data...")
+  start_time <- Sys.time()
 
   # Get all data
   data <- list(
@@ -161,13 +165,17 @@ download_all_aihw_data <- function(file = "aihw_data.rds", force = FALSE) {
     version_hash = get_version_hash()
   )
 
+  end_time <- Sys.time()
+  total_time <- round(as.numeric(end_time - start_time, units = "mins"), 1)
+
   # Save all data
   saveRDS(data, file, compress = TRUE)
   message(glue::glue(
     "Saved {nrow(data$datasets)} datasets, ",
     "{nrow(data$measures)} measures, ",
     "{nrow(data$reporting_units)} reporting units, ",
-    "{nrow(data$flat_data)} flat data rows"
+    "{format(nrow(data$flat_data), big.mark = ',')} flat data rows ",
+    "in {total_time} minutes"
   ))
   data
 }
