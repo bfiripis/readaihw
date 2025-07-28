@@ -30,7 +30,6 @@ URL: https://github.com/RWParsons/readaihw, https://rwparsons.github.io/readaihw
 BugReports: https://github.com/RWParsons/readaihw/issues
 Imports: 
     assertthat,
-    digest,
     dplyr,
     glue,
     httr2,

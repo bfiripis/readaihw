@@ -111,7 +111,7 @@ get_measures <- function() {
 
   # Get measures from all categories
   all_measures <- categories$measure_category_code |>
-    purrr::map_dfr(~get_measures_from_category(.x, trim = FALSE))
+    purrr::map_dfr(~ get_measures_from_category(.x, trim = FALSE))
 
   all_measures
 }
@@ -141,7 +141,6 @@ get_measures <- function() {
 #'
 #' @export
 download_all_aihw_data <- function(file = "aihw_data.rds", force = FALSE) {
-
   # Check if we can use cached data
   if (!force) {
     cached_data <- check_cached_data(file)
