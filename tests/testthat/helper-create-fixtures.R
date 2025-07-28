@@ -26,4 +26,3 @@ if (remake_fixtures) {
     ~ save_fixture(read_dataset_by_id(.x), glue::glue("dataset-{.x}"))
   )
 }
-

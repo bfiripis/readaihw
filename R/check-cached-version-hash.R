@@ -1,22 +1,25 @@
 #' Version checking for caching
 #' @export
 get_version_hash <- function() {
-  tryCatch({
-    # Use existing functions to get counts
-    dataset_count <- nrow(get_datasets(tidy_data = FALSE))
-    measure_count <- nrow(get_measure_categories())  # Use categories as proxy
+  tryCatch(
+    {
+      # Use existing functions to get counts
+      dataset_count <- nrow(get_datasets(tidy_data = FALSE))
+      measure_count <- nrow(get_measure_categories()) # Use categories as proxy
 
-    metadata <- list(
-      dataset_count = dataset_count,
-      measure_count = measure_count,
-      date = Sys.Date()
-    )
-    rlang::hash(metadata)
-  }, error = function(e) {
-    # Fallback to date-based versioning if API calls fail
-    warning("Could not generate version hash, using date: ", e$message)
-    rlang::hash(Sys.Date())
-  })
+      metadata <- list(
+        dataset_count = dataset_count,
+        measure_count = measure_count,
+        date = Sys.Date()
+      )
+      rlang::hash(metadata)
+    },
+    error = function(e) {
+      # Fallback to date-based versioning if API calls fail
+      warning("Could not generate version hash, using date: ", e$message)
+      rlang::hash(Sys.Date())
+    }
+  )
 }
 
 #' Check if cached data is current

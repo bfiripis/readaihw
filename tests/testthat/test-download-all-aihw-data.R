@@ -18,9 +18,11 @@ test_that("download_all_aihw_data() creates expected structure", {
 
   # Check structure
   expect_type(result, "list")
-  expected_elements <- c("datasets", "measures", "reporting_units",
-                         "measure_categories", "hospital_mappings",
-                         "flat_data", "downloaded", "version_hash")
+  expected_elements <- c(
+    "datasets", "measures", "reporting_units",
+    "measure_categories", "hospital_mappings",
+    "flat_data", "downloaded", "version_hash"
+  )
   expect_true(all(expected_elements %in% names(result)))
 
   # Check file was created
