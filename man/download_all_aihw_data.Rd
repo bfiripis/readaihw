@@ -12,7 +12,17 @@ download_all_aihw_data(file = "aihw_data.rds", force = FALSE)
 \item{force}{Force redownload, even if file exists and is current (default: FALSE)}
 }
 \value{
-List containing all AIHW data with elements: datasets, measures, reporting_units, etc.
+List containing all AIHW data with elements:
+\itemize{
+\item datasets - All available datasets
+\item measures - All measures across categories
+\item reporting_units - Hospital and facility information
+\item measure_categories - Available measure categories
+\item hospital_mappings - Hospital location mappings
+\item flat_data - All flat data extracts
+\item downloaded - Timestamp of download
+\item version_hash - Hash for cache validation
+}
 }
 \description{
 Download all AIHW MyHospitals data to a single .rds file
@@ -20,9 +30,9 @@ Download all AIHW MyHospitals data to a single .rds file
 \examples{
 \dontshow{if (interactive() && curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Download all data to default file
-all_data <- download_all_aihw_data()
+data <- download_all_aihw_data()
 
 # Force fresh download
-all_data <- download_all_aihw_data(force = TRUE)
+data <- download_all_aihw_data(force = TRUE)
 \dontshow{\}) # examplesIf}
 }
