@@ -11,11 +11,11 @@ get_version_hash <- function() {
       measure_count = measure_count,
       date = Sys.Date()
     )
-    digest::digest(metadata, algo = "md5")
+    rlang::hash(metadata)
   }, error = function(e) {
     # Fallback to date-based versioning if API calls fail
     warning("Could not generate version hash, using date: ", e$message)
-    digest::digest(Sys.Date(), algo = "md5")
+    rlang::hash(Sys.Date())
   })
 }
 
