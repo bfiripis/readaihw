@@ -61,17 +61,24 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>List containing all AIHW data with elements: datasets, measures, reporting_units, etc.</p>
-    </div>
+    <p>List containing all AIHW data with elements:</p><ul><li><p>datasets - All available datasets</p></li>
+<li><p>measures - All measures across categories</p></li>
+<li><p>reporting_units - Hospital and facility information</p></li>
+<li><p>measure_categories - Available measure categories</p></li>
+<li><p>hospital_mappings - Hospital location mappings</p></li>
+<li><p>flat_data - All flat data extracts</p></li>
+<li><p>downloaded - Timestamp of download</p></li>
+<li><p>version_hash - Hash for cache validation</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive() &amp;&amp; curl::has_internet()</span></span></span>
 <span class="r-in"><span><span class="co"># Download all data to default file</span></span></span>
-<span class="r-in"><span><span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu">download_all_aihw_data</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">download_all_aihw_data</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Force fresh download</span></span></span>
-<span class="r-in"><span><span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu">download_all_aihw_data</span><span class="op">(</span>force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">download_all_aihw_data</span><span class="op">(</span>force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
