@@ -35,7 +35,7 @@ read_flat_data_extract <- function(measure_category_code, measure_code, return_c
   tops <- purrr::map(skips, ~ min(c(max_rows, total_rows - .x)))
 
   # Progress message
-  estimated_minutes <- round(length(skips) * 1 / 60, 1)
+  estimated_minutes <- round(length(skips) * 2.5 / 60, 1)  # Account for rate limiting
   message(glue::glue("Downloading {format(total_rows, big.mark = ',')} rows from {measure_category_code} in {length(skips)} chunks (~{estimated_minutes} min)"))
 
   category_start_time <- Sys.time()
@@ -50,7 +50,7 @@ read_flat_data_extract <- function(measure_category_code, measure_code, return_c
         top = .y
       )
 
-      # Rate limiting delay and progress updates
+      # Progress updates
       current_index <- which(skips == .x)
 
       # Show progress every 10 calls
@@ -59,31 +59,15 @@ read_flat_data_extract <- function(measure_category_code, measure_code, return_c
         message(glue::glue("  Progress: {current_index}/{length(skips)} chunks completed ({elapsed_time}s elapsed)"))
       }
 
-      if(current_index < length(skips)) {
-        Sys.sleep(1) # be nice to the server
-      }
-
       return(result)
     }
   )
 
-  final_result <- dframes |>
+  dframes |>
     dplyr::bind_rows() |>
-    suppressMessages(tidy_flat_data_extract(return_caveats = return_caveats))
-
-  category_end_time <- Sys.time()
-  category_total_time <- round(as.numeric(category_end_time - category_start_time, units = "secs"), 1)
-  message(glue::glue("✓ Completed {measure_category_code}: {format(total_rows, big.mark = ',')} rows in {category_total_time}s"))
-
-  final_result
+    tidy_flat_data_extract(return_caveats = return_caveats)
 }
 
-#' Convert API response to tidy data frame
-#'
-#' @param result API response result list
-#' @return data.frame with cleaned column names
-#' @export
-#' @noRd
 tidy_resp_to_df <- function(result) {
   result |>
     purrr::map(unlist) |>
